@@ -1,0 +1,4 @@
+CompileFlags:
+  Remove: [-ivfsstatcache*, -index-store-path*, -index-unit-output-path*]
+  Add: -I/Users/ani/dev/rn-bs/rn-bs/example/ios/build/generated/ios
+
