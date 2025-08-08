@@ -38,7 +38,7 @@ function SheetView({ onPress }: { onPress: () => void }) {
         flex: 1,
         left: 0,
         top: 0,
-        backgroundColor: 'white',
+        backgroundColor: 'red',
         justifyContent: 'center',
         alignItems: 'center',
       }}
@@ -79,7 +79,12 @@ export default function App() {
           <Text style={{ color: 'black' }}>Open the thing</Text>
         </Pressable>
       </View>
-      <Sheet open={show} detents={['medium', 'large']}>
+      <Sheet
+        open={show}
+        detents={['medium', 'large']}
+        largestUndimmedDetent="medium"
+        onOpenChange={setShow}
+      >
         <SheetView onPress={onPress} />
       </Sheet>
     </View>

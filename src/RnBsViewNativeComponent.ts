@@ -1,5 +1,10 @@
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import type { ViewProps } from 'react-native';
+import type { BubblingEventHandler } from 'react-native/Libraries/Types/CodegenTypes';
+
+type OnOpenChangeEventData = {
+  open: boolean;
+};
 
 export type Detent = 'medium' | 'large' | 'small';
 
@@ -12,6 +17,9 @@ export interface NativeProps extends ViewProps {
   detents?: Array<string>;
   largestUndimmedDetent?: string;
   expandOnScroll?: boolean;
+
+  // @TODO: direct or bubbling event handler?
+  onOpenChange?: BubblingEventHandler<OnOpenChangeEventData> | null;
 }
 
 export default codegenNativeComponent<NativeProps>('RnBsView');

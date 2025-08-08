@@ -12,6 +12,7 @@
 
 using namespace facebook::react;
 
+// @TODO: move controller to its own file(s)
 @interface RnBsHostViewController: UIViewController
 @end
 
@@ -36,7 +37,7 @@ using namespace facebook::react;
 }
 @end
 
-@interface RnBsView () <RCTRnBsViewViewProtocol>
+@interface RnBsView () <RCTRnBsViewViewProtocol, UISheetPresentationControllerDelegate>
 @end
 
 @implementation RnBsView {
@@ -105,7 +106,8 @@ using namespace facebook::react;
 {
   // Configure sheet -- maybe move to its own thing
   UISheetPresentationController *sheet = _viewController.sheetPresentationController;
-  
+  sheet.delegate = self;
+
   [sheet animateChanges:^{
       sheet.detents = _detents;
       sheet.largestUndimmedDetentIdentifier = _largestUndimmedDetent;
@@ -173,6 +175,21 @@ using namespace facebook::react;
   
   return nil;
 }
+
+#pragma mark - UISheetPresentationControllerDelegate
+
+// @TODO: figure out if we should use DidDismiss or WillDismiss
+- (void)presentationControllerDidDismiss:(UIPresentationController *)presentationController
+{
+  RnBsViewEventEmitter::OnOpenChange value = RnBsViewEventEmitter::OnOpenChange{.open = NO};
+  [self eventEmitter].onOpenChange(value);
+}
+
+- (const RnBsViewEventEmitter &)eventEmitter
+{
+  return static_cast<const RnBsViewEventEmitter &>(*_eventEmitter);
+}
+
 
 + (ComponentDescriptorProvider)componentDescriptorProvider {
   return concreteComponentDescriptorProvider<RnBsViewComponentDescriptor>();
