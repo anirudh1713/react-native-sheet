@@ -2,11 +2,14 @@ import { StyleSheet } from 'react-native';
 import RnBsView from './RnBsViewNativeComponent';
 import type { NativeProps } from './RnBsViewNativeComponent';
 
-export interface SheetProps extends NativeProps {}
+export interface SheetProps extends NativeProps {
+  largestUndimmedDetent?: 'medium' | 'large';
+  detents?: Array<'medium' | 'large'>;
+}
 
 export function Sheet(props: SheetProps) {
   return (
-    <RnBsView {...props} style={styles.sheetView} open={props.open}>
+    <RnBsView {...props} style={styles.sheetView}>
       {props.children}
     </RnBsView>
   );

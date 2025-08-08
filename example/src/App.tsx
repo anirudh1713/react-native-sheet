@@ -1,8 +1,37 @@
 import { useState } from 'react';
 import { View, StyleSheet, Text, Pressable, Modal } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Sheet } from 'rn-bs';
 
+const Stack = createNativeStackNavigator();
+
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+    </View>
+  );
+}
+
+function AwayScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Away Screen</Text>
+    </View>
+  );
+}
+
 function SheetView({ onPress }: { onPress: () => void }) {
+  // return (
+  //   <NavigationContainer>
+  //     <Stack.Navigator>
+  //       <Stack.Screen name="Home" component={HomeScreen} />
+  //       <Stack.Screen name="Away" component={AwayScreen} />
+  //     </Stack.Navigator>
+  //   </NavigationContainer>
+  // );
+
   return (
     <View
       style={{
@@ -10,16 +39,19 @@ function SheetView({ onPress }: { onPress: () => void }) {
         left: 0,
         top: 0,
         backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
-      <Pressable style={{ flex: 1 }} onPress={onPress}>
-        <View>
-          <Text style={{ color: 'black' }}>Hello</Text>
-        </View>
-        <View>
-          <Text>LFG</Text>
-        </View>
-      </Pressable>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Pressable style={{ flex: 1 }} onPress={onPress}>
+          <View
+            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+          >
+            <Text style={{ color: 'black' }}>Hello</Text>
+          </View>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -47,7 +79,7 @@ export default function App() {
           <Text style={{ color: 'black' }}>Open the thing</Text>
         </Pressable>
       </View>
-      <Sheet open={show}>
+      <Sheet open={show} detents={['medium', 'large']}>
         <SheetView onPress={onPress} />
       </Sheet>
     </View>

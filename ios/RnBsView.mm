@@ -41,8 +41,6 @@ using namespace facebook::react;
 
 @implementation RnBsView {
   UIViewController *_viewController;
-  BOOL _shouldPresent;
-  BOOL _isPresented;
 }
 
 - (instancetype)init
@@ -75,13 +73,17 @@ using namespace facebook::react;
 
 - (void)updateProps:(Props::Shared const &)props
            oldProps:(Props::Shared const &)oldProps {
-  const auto &oldViewProps =
+  const auto &_oldViewProps =
       *std::static_pointer_cast<RnBsViewProps const>(_props);
   
   const auto &newViewProps =
       *std::static_pointer_cast<RnBsViewProps const>(props);
-
-  _shouldPresent = newViewProps.open;
+  
+  [self setShouldPresent:newViewProps.open];
+  [self setExpandOnScroll:newViewProps.expandOnScroll];
+  [self setDetents: [self parseDetents:newViewProps.detents]];
+  [self setLargestUndimmedDetent: [self parseDetent:newViewProps.largestUndimmedDetent]];
+  
   [self presentOrCloseBottomSheetIfNeeded];
 
   [super updateProps:props oldProps:oldProps];
@@ -103,11 +105,17 @@ using namespace facebook::react;
 {
   // Configure sheet -- maybe move to its own thing
   UISheetPresentationController *sheet = _viewController.sheetPresentationController;
-  sheet.detents = @[UISheetPresentationControllerDetent.mediumDetent, UISheetPresentationControllerDetent.largeDetent];
-  sheet.largestUndimmedDetentIdentifier = UISheetPresentationControllerDetentIdentifierMedium;
-  sheet.prefersScrollingExpandsWhenScrolledToEdge = false;
-  sheet.prefersEdgeAttachedInCompactHeight = true;
-  sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true;
+  
+  [sheet animateChanges:^{
+      sheet.detents = _detents;
+      sheet.largestUndimmedDetentIdentifier = _largestUndimmedDetent;
+      sheet.prefersScrollingExpandsWhenScrolledToEdge = _expandOnScroll;
+      
+    // @TODO: more props
+    //  sheet.prefersEdgeAttachedInCompactHeight = true;
+    //  sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true;
+  }];
+  
   
   if (!_isPresented && _shouldPresent && self.window) {
     _isPresented = YES;
@@ -130,6 +138,39 @@ using namespace facebook::react;
     }
     responder = [responder nextResponder];
   }
+  return nil;
+}
+
+-(NSArray<UISheetPresentationControllerDetent *> *)parseDetents:(std::vector<std::string>)detents
+{
+  // @TODO: figure out a better way
+  NSMutableArray<UISheetPresentationControllerDetent *> *parsedDetents = [[NSMutableArray alloc] init];
+  
+  for (const std::string& detent : detents) {
+    if (detent.compare("medium") == 0)
+    {
+      [parsedDetents addObject:UISheetPresentationControllerDetent.mediumDetent];
+    }
+    
+    if (detent.compare("large") == 0)
+    {
+      [parsedDetents addObject:UISheetPresentationControllerDetent.largeDetent];
+    }
+  }
+  
+  return parsedDetents;
+}
+
+-(UISheetPresentationControllerDetentIdentifier)parseDetent:(std::string)detent
+{
+  if (detent.compare("medium") == 0) {
+    return UISheetPresentationControllerDetentIdentifierMedium;
+  }
+  
+  if (detent.compare("large") == 0) {
+    return UISheetPresentationControllerDetentIdentifierLarge;
+  }
+  
   return nil;
 }
 
