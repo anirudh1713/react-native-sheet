@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) UISheetPresentationControllerDetentIdentifier largestUndimmedDetent;
 @property (nonatomic) NSArray<UISheetPresentationControllerDetent *> * detents;
+@property (nonatomic) CGFloat cornerRadius;
 @property (nonatomic) BOOL expandOnScroll;
+@property (nonatomic) BOOL grabberVisible;
 
 @end
 

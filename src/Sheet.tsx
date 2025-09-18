@@ -24,9 +24,9 @@ export function Sheet(props: SheetProps) {
 
 const styles = StyleSheet.create({
   sheetView: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
     position: 'absolute',
+    left: 0,
+    top: 0,
+    backgroundColor: 'black',
   },
 });

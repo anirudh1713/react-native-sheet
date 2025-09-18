@@ -18,4 +18,11 @@ Pod::Spec.new do |s|
 
 
   install_modules_dependencies(s)
+
+  s.subspec "common" do |ss|
+    ss.source_files         = ["common/cpp/**/*.{cpp,h}", "cpp/**/*.{cpp,h}"]
+    ss.project_header_files = "common/cpp/**/*.h", "cpp/**/*.h"
+    ss.header_dir           = "rnbs"
+    ss.pod_target_xcconfig  = { "HEADER_SEARCH_PATHS" => "\"$(PODS_TARGET_SRCROOT)/common/cpp\"" }
+  end
 end

@@ -9398,6 +9398,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"navigation-react-native@npm:^9.31.3":
+  version: 9.31.3
+  resolution: "navigation-react-native@npm:9.31.3"
+  peerDependencies:
+    navigation: "*"
+    navigation-react: "*"
+    react: "*"
+    react-native: "*"
+  checksum: cf903cb0328075a2ffad8053a4102beda0deb40d91dc8ddd24cae1939304edbeebf35767094537cf4663fbb10d643806353081970b3522fc22bafd255959704d
+  languageName: node
+  linkType: hard
+
+"navigation-react@npm:^4.13.0":
+  version: 4.13.0
+  resolution: "navigation-react@npm:4.13.0"
+  peerDependencies:
+    navigation: "*"
+    react: "*"
+  checksum: eebaed523b4a83b2bc3d1d62d96cebcb0af8a3d9d80da11530a6af80cb3958458983d5aa56d4eaccf204c58e22c1edd61abdc53279043a538d12ff8091d76daf
+  languageName: node
+  linkType: hard
+
+"navigation@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "navigation@npm:6.3.0"
+  checksum: cb357bf23d648cde876498c188595b25ffe5407b604d067e89cad5c15cbfbb77c1a871905433c9b947dedf57342ad140ae95c074835d9fc0ea73ffeaa8dc1716
+  languageName: node
+  linkType: hard
+
 "negotiator@npm:0.6.3":
   version: 0.6.3
   resolution: "negotiator@npm:0.6.3"
@@ -10935,6 +10964,9 @@ __metadata:
     "@react-navigation/native": ^7.1.17
     "@react-navigation/native-stack": ^7.3.24
     "@types/react": ^19.0.0
+    navigation: ^6.3.0
+    navigation-react: ^4.13.0
+    navigation-react-native: ^9.31.3
     react: 19.0.0
     react-native: 0.79.2
     react-native-builder-bob: ^0.40.13
