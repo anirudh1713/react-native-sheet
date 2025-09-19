@@ -265,6 +265,12 @@ using namespace facebook::react;
   NSLog(@"DETENT CHANGE : %@", sheetPresentationController.selectedDetentIdentifier);
 }
 
+- (void)presentationControllerWillDismiss:(UIPresentationController *)presentationController
+{
+  auto newState = RNBSSheetState{RCTSizeFromCGSize(CGSize(0))};
+  _state->updateState(std::move(newState));
+}
+
 // @TODO: figure out if we should use DidDismiss or WillDismiss
 - (void)presentationControllerDidDismiss:(UIPresentationController *)presentationController
 {

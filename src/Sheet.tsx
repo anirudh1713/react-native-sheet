@@ -16,7 +16,11 @@ export function Sheet(props: SheetProps) {
   };
 
   return (
-    <RnBsView {...props} style={styles.sheetView} onOpenChange={onOpenChange}>
+    <RnBsView
+      {...props}
+      style={[styles.sheetView, { height: props.open ? undefined : 0 }]}
+      onOpenChange={onOpenChange}
+    >
       {props.children}
     </RnBsView>
   );
@@ -25,8 +29,7 @@ export function Sheet(props: SheetProps) {
 const styles = StyleSheet.create({
   sheetView: {
     position: 'absolute',
-    left: 0,
-    top: 0,
-    backgroundColor: 'black',
+    bottom: 0,
+    right: 0,
   },
 });

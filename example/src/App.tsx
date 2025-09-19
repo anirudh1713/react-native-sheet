@@ -8,12 +8,13 @@ function SheetView({ onPress }: { onPress: () => void }) {
       style={{
         flex: 1,
         backgroundColor: 'red',
-        justifyContent: 'center',
-        alignItems: 'center',
       }}
     >
-      <Text style={{ color: 'black' }}>Hello</Text>
-      <Text style={{ color: 'black' }}>Hello</Text>
+      {new Array(40).fill(0).map((_x, i) => (
+        <Text key={i} style={{ color: 'black' }}>
+          Hello
+        </Text>
+      ))}
     </View>
   );
 }
